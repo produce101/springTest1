@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <settings>
+        <setting name="logImpl" value="LOG4J" />
+    </settings>
+
+    <typeAliases>
+        <typeAlias alias="boardVo" type="Board.BoardVO"/>
+        <typeAlias alias="passVo" type="auth.PassVO"/>
+        <typeAlias alias="memberVo" type="auth.MemberVO"/>
+        <typeAlias alias="authVo" type="auth.AuthVO"/>
+    </typeAliases>
+
+
+
+
+
+    <!--<mappers>
+        <mapper resource="web/Test1-mapping.xml"/>
+    </mappers>-->
+
+<!--    <mappers>
+        <mapper resource="web/*.xml"/>
+    </mappers>-->
+
+<!--    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="org/mybatis/example/BlogMapper.xml"/>
+    </mappers>-->
+</configuration>

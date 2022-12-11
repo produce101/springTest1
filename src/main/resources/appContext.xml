@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.2.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd
+        http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd
+http://www.springframework.org/schema/mvc
+http://www.springframework.org/schema/mvc/spring-mvc.xsd
+"
+
+>
+
+
+
+
+
+        <context:property-placeholder location="classpath:mybatis/global.properties"/>
+        <!--id="dataSource"
+        id="jdbcTemplate"-->
+
+        <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+                <!--<property name="driverClassName" value="org.mariadb.jdbc.Driver"/>-->
+                <property name="driverClassName" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+        </bean>
+<!--        org.mariadb.jdbc.Driver-->
+
+
+        <!--<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" >-->
+<!--        <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" >
+                <property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
+                <property name="url" value="jdbc:log4jdbc:mariadb://localhost:3307/test2" />
+                <property name="username" value="root"/>
+                <property name="password" value="djdjdp12"  />
+        </bean>-->
+
+
+
+        <!--<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" >
+                <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3307/test2" />
+                <property name="username" value="root"/>
+                <property name="password" value="djdjdp12"  />
+        </bean>-->
+
+
+
+<!--        <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" >
+                <property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
+                <property name="url" value="jdbc:log4jdbc:mysql://localhost:3307/test2" />
+                <property name="username" value="root"/>
+                <property name="password" value="djdjdp12"  />
+        </bean>-->
+
+
+
+        <bean class="org.springframework.jdbc.core.JdbcTemplate">
+                <property name="dataSource" ref="dataSource"/>
+        </bean>
+
+
+        <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+                <property name="dataSource" ref="dataSource"/>
+
+                <property name="configLocation"
+                          value="classpath:/mybatis/mybatis-config.xml" />
+                <property name="mapperLocations"
+                          value="classpath:/web/*" />
+        </bean>
+
+        <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate"  destroy-method="clearCache">
+                <constructor-arg ref="sqlSessionFactory" />
+        </bean>
+
+        <!--<bean id="sony" class="OnlyConsole.SonySpeaker" init-method="abc"/>-->
+        <bean id="apple" class="OnlyConsole.AppleSpeaker" init-method="abc" lazy-init="true"/>
+
+        <bean id="log" class="Common.Log4jAdvice"/>
+
+
+        <bean id="txManage" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+                <property name="dataSource" ref="dataSource"/>
+        </bean>
+
+
+<!--        <aop:config>
+                <aop:pointcut id="allPointcut" expression="execution(* Board..*Test1.a*(..))"/>
+                <aop:aspect ref="log">
+                        <aop:after-returning pointcut-ref="allPointcut" method="printLogging2" returning="returnOb"/>
+                        <aop:after-returning pointcut-ref="allPointcut" method="printLogging2" returning="returnOb"/>
+                        <aop:after-returning pointcut-ref="allPointcut" method="printLogging33" returning="returnOb"/>
+                </aop:aspect>
+
+
+        </aop:config>-->
+
+        <mvc:annotation-driven/>
+
+        <aop:aspectj-autoproxy/>
+
+        <context:component-scan base-package="OnlyConsole"/>
+        <context:component-scan base-package="Board"/>
+        <context:component-scan base-package="Common"/>
+        <context:component-scan base-package="auth"/>
+        <context:component-scan base-package="Config"/>
+
+
+        <!--<mvc:interceptors>
+                <mvc:interceptor>
+                        <mvc:mapping path="/doc"/>
+                        <ref bean="sampleInterceptor"/>
+                </mvc:interceptor>
+        </mvc:interceptors>-->
+
+
+
+
+</beans>

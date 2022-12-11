@@ -1,0 +1,5 @@
+msg.user.title=로그인
+msg.user.ide=아이디
+msg.user.password=비밀번호
+msg.user.loginBtn=로그인 버튼
+

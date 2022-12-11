@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="_test1Mapper">
+
+    <select id="getRowCount" resultType="int">
+    <![CDATA[
+        SELECT COUNT(*) FROM board
+    ]]>
+
+    </select>
+
+
+    <select id="getStr1" resultType="String">
+        <!--_test1Mapper.getStr1-->
+        SELECT str1 FROM board LIMIT 1
+    </select>
+
+
+    <select id="getStr2" resultType="String">
+        <![CDATA[
+            SELECT str1 FROM board
+        ]]>
+    </select>
+
+    <select id="getStr3" parameterType="Board.BoardVO" resultType="Board.BoardVO">
+            <!--_test1Mapper.getStr3-->
+            SELECT
+                a.str1 AS str1,
+                a.name AS name,
+                a.age AS age
+            FROM
+                board a
+            WHERE
+                str1 LIKE CONCAT('%', #{str1}, '%')
+
+    </select>
+
+    <insert id="insertTest1" parameterType="Board.BoardVO">
+
+            <selectKey keyProperty="seq" resultType="int" order="AFTER">
+                SELECT LAST_INSERT_ID()
+            </selectKey>
+
+            INSERT INTO
+                board (
+                    str1,
+                    name,
+                    age
+                )
+            VALUES (
+                #{str1},
+                #{name},
+                #{age}
+
+            )
+
+
+    </insert>
+
+
+    <insert id="insertTest2" parameterType="Board.BoardVO">
+
+        <!--<selectKey keyProperty="seq" resultType="int" order="BEFORE">
+            SELECT nos.NEXTVAL AS seq FROM dual
+        </selectKey>-->
+
+        INSERT INTO
+        board (
+        str1,
+        name,
+        age
+        )
+        VALUES (
+        #{str1},
+        #{name},
+        #{seq}
+
+        )
+
+
+    </insert>
+
+</mapper>

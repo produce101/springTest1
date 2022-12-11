@@ -1,0 +1,83 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/security
+		http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		">
+
+
+    <bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+    <bean id="customUserDetailService" class="auth.CustomUserDetailService"/>
+
+
+
+    <security:http>
+        <security:intercept-url pattern="/auth/all" access="permitAll"/>
+
+        <security:intercept-url pattern="/auth/member" access="hasRole('ROLE_MEMBER2')"/>
+
+        <security:intercept-url pattern="/auth/admin" access="hasRole('ROLE_ADMIN')"/>
+
+
+        <!--<security:form-login login-page="/auth/customLogin"
+                             authentication-success-handler-ref="customLoginSuccess" login-processing-url="customUserDetailService" always-use-default-target="true" />-->
+
+        <!--<security:form-login login-page="/auth/customLogin" username-parameter="username" password-parameter="password"
+                             default-target-url="/" login-processing-url="/loginCheck" />-->
+
+
+        <security:form-login login-page="/auth/customLogin2" login-processing-url="/loginCheck2" authentication-success-handler-ref="customLoginSuccess" authentication-failure-handler-ref="customLoginFailed"/>
+
+        <!--<security:form-login login-page="/auth/customLogin" login-processing-url="/loginCheck" authentication-success-handler-ref="customLoginSuccess" />-->
+
+        <security:remember-me data-source-ref="dataSource" token-validity-seconds="604800" />
+
+
+        <!--<security:oauth2-login login-page="/auth/customLogin2" login-processing-url="/loginCheck2" authentication-success-handler-ref="customLoginSuccess" />-->
+
+        <!--<security:logout logout-url="/auth/customLogout" success-handler-ref="customLogoutSuccess" />-->
+
+        <security:logout logout-url="/auth/customLogout" success-handler-ref="customLogoutSuccess" invalidate-session="true" delete-cookies="remember-me,JSSESSION_ID"/>
+
+
+
+
+
+        <security:access-denied-handler error-page="/auth/authErr"/>
+        <security:access-denied-handler ref="abc"/>
+
+    </security:http>
+
+    <security:authentication-manager>
+
+        <security:authentication-provider user-service-ref="customUserDetailService">
+
+            <!--<security:jdbc-user-service data-source-ref="dataSource"/>-->
+
+
+            <!--<security:password-encoder ref="passwordEncoder" />-->
+
+            <security:password-encoder ref="bcryptPasswordEncoder" />
+
+
+
+
+            <!--<security:user-service>
+
+                <security:user name="member" password="{noop}member" authorities="ROLE_MEMBER2"/>
+
+                <security:user name="admin" password="{noop}admin" authorities="ROLE_ADMIN, ROLE_MEMBER2"/>
+
+
+
+            </security:user-service>-->
+        </security:authentication-provider>
+
+    </security:authentication-manager>
+
+
+
+
+</beans>

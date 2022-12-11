@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="_auth">
+
+    <resultMap id="memberMap" type="MemberVO">
+
+        <id property="userId" column="id"/>
+        <!--<result property="userId" column="id"/>-->
+        <result property="userPw" column="pass"/>
+        <result property="userName" column="name"/>
+        <collection property="authList" resultMap="authMap">
+        </collection>
+
+    </resultMap>
+
+
+    <resultMap id="authMap" type="authVO">
+        <result property="userId" column="id"/>
+        <result property="auth" column="role"/>
+    </resultMap>
+
+
+
+    <!--resultType="memberVO"-->
+    <select id="selectMember" parameterType="memberVO" resultMap="memberMap">
+
+        SELECT
+           a.id,
+           a.pass,
+           a.name,
+           b.role
+        FROM
+            member a
+        LEFT JOIN
+            auth b
+        ON
+            a.idx = b.member_idx
+        WHERE id = #{userId};
+
+
+        /*SELECT
+           a.id as userId,
+           a.pass as userPw,
+           a.name as userName,
+           a.role
+        FROM
+            member a
+        LEFT JOIN
+            auth b
+        ON
+            a.idx = b.member_idx
+        WHERE id = #{userId};*/
+
+
+    </select>
+
+
+    <insert id="insertId" parameterType="passVo">
+
+        <!--<selectKey keyProperty="seq" resultType="int" order="BEFORE">
+            SELECT nos.NEXTVAL AS seq FROM dual
+        </selectKey>-->
+
+        INSERT INTO member (
+            id,
+            pass,
+            name
+        )
+        VALUES (
+            #{id},
+            #{pass},
+            #{name}
+
+        )
+
+    </insert>
+
+
+
+
+</mapper>
