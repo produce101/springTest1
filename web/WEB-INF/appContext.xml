@@ -6,4 +6,5 @@
         <bean id="tv" class="OnlyConsole.LgTV" init-method="abc"/>
 
 
+        
 </beans>
