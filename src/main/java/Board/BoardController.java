@@ -234,7 +234,7 @@ public class BoardController {
         model.addAttribute(boardVO);
 
 
-        httpSession.setAttribute("aaa","세븐 일레븐~ 세븐 일레븐~");
+        httpSession.setAttribute("aaa","세븐 일레븐~ 세븐 일레븐~ 77711777");
 
         httpSession.setAttribute("aab","이거는요??");
 
