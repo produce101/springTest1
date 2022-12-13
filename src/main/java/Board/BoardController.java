@@ -56,7 +56,7 @@ public class BoardController {
     @RequestMapping("/")
     public String home(Model model){
         System.out.println("되요123??");
-        BoardVO boardVO = boardService.getBoard(new BoardVO());
+        //BoardVO boardVO = boardService.getBoard(new BoardVO());
         return "home/index";
     }
 
