@@ -234,7 +234,7 @@ public class BoardController {
         model.addAttribute(boardVO);
 
 
-        httpSession.setAttribute("aaa","~~넘어가는 값 변경 확인zxczxczxc123123~~");
+        httpSession.setAttribute("aaa","세븐 일레븐~ 세븐 일레븐~");
 
         httpSession.setAttribute("aab","이거는요??");
 
