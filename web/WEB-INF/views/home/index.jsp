@@ -11,7 +11,7 @@
     <title>Title</title>
 </head>
 <body>
-Hello Page! 아따 빡시네잉123321321311777777
+Hello Page! 메인페이지입니다~
 
 <form action="insertFile" method="post" enctype="multipart/form-data">
 
