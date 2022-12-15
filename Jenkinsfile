@@ -12,7 +12,7 @@ pipeline {
 
        stage('Checkout') {
             steps {
-                sh 'echo testtest!!!'
+                sh 'echo testtest wowwowwowowow!!!'
                 //sh 'pwd'
                 //git branch: 'development',
                 //    credentialsId: 'zxczzxc',
