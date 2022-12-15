@@ -22,6 +22,9 @@
   <title>Session Test</title>
 </head>
 <body>
+
+<div>세션이 변경되었습니다~</div>
+
 <table border=1 bordercolor="gray" cellspacing=1 cellpadding=0
        width="100%">
   <tr bgcolor="gray">
