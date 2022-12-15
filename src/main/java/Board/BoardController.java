@@ -241,6 +241,12 @@ public class BoardController {
         return "home/doc";
     }
 
+    @RequestMapping(value = "/st")
+    public String st(HttpServletRequest httpServletRequest, @Validated BoardVO boardVO, @Validated  @ModelAttribute("msg") String msg, Model model, HttpSession httpSession){
+
+        return "home/sessionTest";
+    }
+
 
 
 
